@@ -100,37 +100,36 @@ def write_head_contents():
 def write_readme_lang_md(repos_stars, repos_forks, repos_languages, languages, languages_md):
     # Most stars save
     write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a',
-               '## Most Stars\n\nThis is top 10 list, for more click **[Github Top 100 Stars](Top100/Top-100-stars.md)**\n\n')
+               '## Most Stars**\n\n')
     save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a', repos_stars)
     print("Save most stars in README.md!")
-    os.makedirs('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100', exist_ok=True)
-    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-stars.md', 'w',
-               '[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Github Top 100 Stars\n\n')
-    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-stars.md', 'a', repos_stars)
-    print("Save most stars in Top100/Top-100-stars.md!\n")
+#    os.makedirs('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100', exist_ok=True)
+#    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-stars.md', 'w',
+#               '[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Github Top 100 Stars\n\n')
+#    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-stars.md', 'a', repos_stars)
+#    print("Save most stars in Top100/Top-100-stars.md!\n")
 
-    # Most forks save
-    write_text("README.md", 'a',
-               "## Most Forks\n\nThis is top 10 list, for more click **[Github Top 100 Forks](Top100/Top-100-forks.md)**\n\n")
-    save_ranking('README.md', 'a', repos_forks)
-    print("Save most forks in README.md!")
-    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-forks.md', 'w',
-               '[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Github Top 100 Forks\n\n')
-    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-forks.md', 'a', repos_forks)
-    print("Save most forks in Top100/Top-100-forks.md!\n")
+#    # Most forks save
+#    write_text("README.md", 'a',
+#               "## Most Forks\n\nThis is top 10 list, for more click **[Github Top 100 Forks](Top100/Top-100-forks.md)**\n\n")
+#    save_ranking('README.md', 'a', repos_forks)
+#    print("Save most forks in README.md!")
+#    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-forks.md', 'w',
+#               '[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Github Top 100 Forks\n\n')
+#    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-forks.md', 'a', repos_forks)
+#    print("Save most forks in Top100/Top-100-forks.md!\n")
 
     # Most stars in language save
     for i in range(len(languages)):
         lang = languages[i]
         write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a',
-                   "## {}\n\nThis is top 10 list, for more click **[Top 100 Stars in {}](Top100/{}.md)**\n\n".format(
-                       languages_md[i], languages_md[i], lang))
+        	               '## Most Stars**\n\n')
         save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a', repos_languages[lang][0:100])
         print("Save most stars of {} in README.md!".format(lang))
-        write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'w',
-                   "[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Top 100 Stars in {}\n\n".format(languages_md[i]))
-        save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'a', repos_languages[lang])
-        print("Save most stars of {} in Top100/{}.md!\n".format(lang, lang))
+#        write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'w',
+#                   "[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Top 100 Stars in {}\n\n".format(languages_md[i]))
+#        save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'a', repos_languages[lang])
+#        print("Save most stars of {} in Top100/{}.md!\n".format(lang, lang))
 
 
 def repo_to_df(repos, item, col):
