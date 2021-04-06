@@ -4,12 +4,14 @@ import json
 import requests
 import os
 import pandas as pd
+from io import open
+
 
 t1 = datetime.now()
 
 
 def get_access_token():
-    with open('access_token.txt', 'r') as f:
+    with open('/Users/raklilu/Other Coding Projects/access_token.txt', 'r') as f:
         return f.read().strip()
 
 
@@ -25,7 +27,7 @@ def get_api_repos(api):
 
 def save_ranking(file_name, method, repos):
     # method: 'a'-append or 'w'-overwrite
-    table_head = "| Ranking | Project Name | Stars | Forks | Language | Open Issues | Description | Last Commit |\n\
+    table_head = "| Ranking | Project Name | Stars | Forks | Language | Description | Last Commit |\n\
 | ------- | ------------ | ----- | ----- | -------- | ----------- | ----------- | ----------- |\n"
     with open(file_name, method, encoding='utf-8') as f:
         f.write(table_head)
@@ -35,14 +37,13 @@ def save_ranking(file_name, method, repos):
             repo_description = repo['description']
             if repo_description is not None:
                 repo_description = repo_description.replace('|', '\|')  # in case there is '|' in description
-            f.write('| {} | [{}]({}) | {} | {} | {} | {} | {} | {} |\n'.format(
+            f.write('| {} | [{}]({}) | {} | {} | {} | {} | {} |\n'.format(
                 count,
                 repo['name'],
                 repo['html_url'],
                 repo['stargazers_count'],
                 repo['forks_count'],
                 repo['language'],
-                repo['open_issues_count'],
                 repo_description,
                 repo['pushed_at']
             ))
@@ -58,9 +59,9 @@ def get_all_repos(languages):
     # get all repos of most stars and forks, and different languages
     access_token = get_access_token()
 
-    repo_stars_api = 'https://api.github.com/search/repositories?q=stars:>0&sort=stars&per_page=100&access_token={}'.format(
+    repo_stars_api = 'https://api.github.com/search/repositories?q=language:python&stars:>0&sort=stars&per_page=100&access_token={}'.format(
         access_token)
-    repo_forks_api = 'https://api.github.com/search/repositories?q=forks:>0&sort=forks&per_page=100&access_token={}'.format(
+    repo_forks_api = 'https://api.github.com/search/repositories?q=language:python&forks:>0&sort=forks&per_page=100&access_token={}'.format(
         access_token)
 
     print("Get repos of most stars...")
@@ -88,72 +89,47 @@ def write_head_contents():
 **A list of the most github stars and forks repositories.**\n\
 \n*Last Automatic Update Time: {}*\n\n".format(write_time)
     contents = '''## Table of Contents\n
-* [Most Stars](#most-stars)
-* [Most Forks](#most-forks)
-* [ActionScript](#actionscript)
-* [C](#c)
-* [C\#](#c-1)
-* [C\+\+](#c-2)
-* [Clojure](#clojure)
-* [CoffeeScript](#coffeescript)
-* [CSS](#css)
-* [Go](#go)
-* [Haskell](#haskell)
-* [HTML](#html)
-* [Java](#java)
-* [Kotlin](#kotlin)
-* [JavaScript](#javascript)
-* [Lua](#lua)
-* [MATLAB](#matlab)
-* [Objective\-C](#objective-c)
-* [Perl](#perl)
-* [PHP](#php)
-* [Python](#python)
-* [R](#r)
-* [Ruby](#ruby)
-* [Scala](#scala)
-* [Shell](#shell)
-* [Swift](#swift)
-* [TeX](#tex)
-* [Vim script](#vim-script)\n
+* [Most Python Stars](#most-python-stars)
+* [Most Python Forks](#most-python-forks)
+\n
 '''
-    write_text('README.md', 'w', head + contents)
+    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'w', head + contents)
 
 
 def write_readme_lang_md(repos_stars, repos_forks, repos_languages, languages, languages_md):
     # Most stars save
-    write_text('README.md', 'a',
+    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a',
                '## Most Stars\n\nThis is top 10 list, for more click **[Github Top 100 Stars](Top100/Top-100-stars.md)**\n\n')
-    save_ranking('README.md', 'a', repos_stars[0:10])
+    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a', repos_stars)
     print("Save most stars in README.md!")
-    os.makedirs('Top100', exist_ok=True)
-    write_text('Top100/Top-100-stars.md', 'w',
-               '[Github Ranking](../README.md)\n==========\n\n## Github Top 100 Stars\n\n')
-    save_ranking('Top100/Top-100-stars.md', 'a', repos_stars)
+    os.makedirs('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100', exist_ok=True)
+    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-stars.md', 'w',
+               '[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Github Top 100 Stars\n\n')
+    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-stars.md', 'a', repos_stars)
     print("Save most stars in Top100/Top-100-stars.md!\n")
 
     # Most forks save
     write_text("README.md", 'a',
                "## Most Forks\n\nThis is top 10 list, for more click **[Github Top 100 Forks](Top100/Top-100-forks.md)**\n\n")
-    save_ranking('README.md', 'a', repos_forks[0:10])
+    save_ranking('README.md', 'a', repos_forks)
     print("Save most forks in README.md!")
-    write_text('Top100/Top-100-forks.md', 'w',
-               '[Github Ranking](../README.md)\n==========\n\n## Github Top 100 Forks\n\n')
-    save_ranking('Top100/Top-100-forks.md', 'a', repos_forks)
+    write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-forks.md', 'w',
+               '[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Github Top 100 Forks\n\n')
+    save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/Top-100-forks.md', 'a', repos_forks)
     print("Save most forks in Top100/Top-100-forks.md!\n")
 
-    # Most stars in language save
-    for i in range(len(languages)):
-        lang = languages[i]
-        write_text('README.md', 'a',
-                   "## {}\n\nThis is top 10 list, for more click **[Top 100 Stars in {}](Top100/{}.md)**\n\n".format(
-                       languages_md[i], languages_md[i], lang))
-        save_ranking('README.md', 'a', repos_languages[lang][0:10])
-        print("Save most stars of {} in README.md!".format(lang))
-        write_text('Top100/' + lang + '.md', 'w',
-                   "[Github Ranking](../README.md)\n==========\n\n## Top 100 Stars in {}\n\n".format(languages_md[i]))
-        save_ranking('Top100/' + lang + '.md', 'a', repos_languages[lang])
-        print("Save most stars of {} in Top100/{}.md!\n".format(lang, lang))
+#  # Most stars in language save
+#  for i in range(len(languages)):
+#      lang = languages[i]
+#      write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a',
+#                 "## {}\n\nThis is top 10 list, for more click **[Top 100 Stars in {}](Top100/{}.md)**\n\n".format(
+#                     languages_md[i], languages_md[i], lang))
+#      save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a', repos_languages[lang][0:100])
+#      print("Save most stars of {} in README.md!".format(lang))
+#      write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'w',
+#                 "[Github Ranking](/Users/raklilu/Other Coding Projects/Github-Ranking/README.md)\n==========\n\n## Top 100 Stars in {}\n\n".format(languages_md[i]))
+#      save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'a', repos_languages[lang])
+#      print("Save most stars of {} in Top100/{}.md!\n".format(lang, lang))
 
 
 def repo_to_df(repos, item, col):
@@ -183,18 +159,14 @@ def save_to_csv(repos_stars, repos_forks, repos_languages):
         df_all = df_all.append(df_repos_lang, ignore_index=True)
 
     save_date = datetime.utcnow().strftime("%Y-%m-%d")
-    os.makedirs('Data', exist_ok=True)
-    df_all.to_csv('Data/github-ranking-' + save_date + '.csv', index=False, encoding='utf-8')
+    os.makedirs('/Users/raklilu/Other Coding Projects/Github-Ranking/Data', exist_ok=True)
+    df_all.to_csv('/Users/raklilu/Other Coding Projects/Github-Ranking/Data/github-ranking-' + save_date + '.csv', index=False, encoding='utf-8')
     print('Save data to Data/github-ranking-' + save_date + '.csv')
 
 
 if __name__ == "__main__":
-    languages = ["ActionScript", "C", "CSharp", "CPP", "Clojure", "CoffeeScript", "CSS", "Go", "Haskell", "HTML",
-                 "Java", "Kotlin", "JavaScript", "Lua", "MATLAB", "Objective-C", "Perl", "PHP", "Python", "R", "Ruby",
-                 "Scala", "Shell", "Swift", "TeX", "Vim-script"]
-    languages_md = ["ActionScript", "C", "C\#", "C\+\+", "Clojure", "CoffeeScript", "CSS", "Go", "Haskell", "HTML",
-                    "Java", "Kotlin", "JavaScript", "Lua", "MATLAB", "Objective\-C", "Perl", "PHP", "Python", "R",
-                    "Ruby", "Scala", "Shell", "Swift", "TeX", "Vim script"]
+    languages = ["Python"]
+    languages_md = ["Python"]
 
     print("Get repos, please wait for seconds...")
     repos_stars, repos_forks, repos_languages = get_all_repos(languages)
