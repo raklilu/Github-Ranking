@@ -100,7 +100,7 @@ def write_head_contents():
 def write_readme_lang_md(repos_stars, repos_forks, repos_languages, languages, languages_md):
     # Most stars save
     write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a',
-               '## Most Stars**\n\n')
+               '## Most Python Forks**\n\n')
     save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a', repos_stars)
     print("Save most stars in README.md!")
 #    os.makedirs('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100', exist_ok=True)
@@ -123,7 +123,7 @@ def write_readme_lang_md(repos_stars, repos_forks, repos_languages, languages, l
     for i in range(len(languages)):
         lang = languages[i]
         write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a',
-        	               '## Most Stars**\n\n')
+        	               '## Most Python Stars**\n\n')
         save_ranking('/Users/raklilu/Other Coding Projects/Github-Ranking/README.md', 'a', repos_languages[lang][0:100])
         print("Save most stars of {} in README.md!".format(lang))
 #        write_text('/Users/raklilu/Other Coding Projects/Github-Ranking/Top100/' + lang + '.md', 'w',
@@ -182,3 +182,5 @@ if __name__ == "__main__":
     save_to_csv(repos_stars, repos_forks, repos_languages)
 
     print("Total time: {}s".format((datetime.now() - t1).total_seconds()))
+
+
