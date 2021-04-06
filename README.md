@@ -1,7 +1,7 @@
 [Github Ranking](./README.md)
 ==========
 
-**A list of the most github stars and forks repositories.**
+**A list of the most github starred and forked repositories for Python projects.**
 
 *Last Automatic Update Time: 2021-04-06T00:23:48Z*
 
@@ -11,7 +11,7 @@
 * [Most Python Forks](#most-python-forks)
 
 
-## Most Stars
+## Most Python Stars
 
 This is top 10 list, for more click **[Github Top 100 Stars](Top100/Top-100-stars.md)**
 
@@ -118,9 +118,8 @@ This is top 10 list, for more click **[Github Top 100 Stars](Top100/Top-100-star
 | 99 | [newspaper](https://github.com/codelucas/newspaper) | 10866 | 1793 | Python | 435 | News, full-text, and article metadata extraction in Python 3. Advanced docs: | 2021-03-06T01:40:55Z |
 | 100 | [aws-cli](https://github.com/aws/aws-cli) | 10852 | 2576 | Python | 713 | Universal Command Line Interface for Amazon Web Services | 2021-04-05T20:50:54Z |
 
-## Python
+## Most Python Forks
 
-This is top 10 list, for more click **[Top 100 Stars in Python](Top100/Python.md)**
 
 | Ranking | Project Name | Stars | Forks | Language | Open Issues | Description | Last Commit |
 | ------- | ------------ | ----- | ----- | -------- | ----------- | ----------- | ----------- |
